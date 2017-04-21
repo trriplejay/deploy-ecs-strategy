@@ -1,0 +1,64 @@
+resources:
+  - name: deploy-ecs-strategy-image
+    type: image
+    flags:
+      - deploy-ecs-strategy
+    integration: dr-ecr
+    pointer:
+      sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/deploy-ecs-strategy"
+    seed:
+      versionName: "latest"
+
+  - name: deploy-ecs-strategy-nginx
+    type: image
+    flags:
+      - deploy-ecs-strategy
+    integration: dr-ecr
+    pointer:
+      sourceName: "679404489841.dkr.ecr.us-east-1.amazonaws.com/nginx"
+    seed:
+      versionName: "1.12.0"
+
+  - name: deploy-ecs-strategy-docker-options
+    type: dockerOptions
+    flags:
+      - deploy-ecs-strategy
+    version:
+      memory: 100
+      portMappings:
+        - 8888:80
+
+  - name: deploy-ecs-strategy-nginx-docker-options
+    type: dockerOptions
+    flags:
+      - deploy-ecs-strategy
+    version:
+      memory: 100
+      portMappings:
+        - 80:80
+
+
+  - name: deploy-ecs-strategy-params
+    type: params
+    flags:
+      - deploy-ecs-strategy
+    version:
+      params:
+        PORT: 80
+        ENVIRONMENT: "dev"
+
+  - name: deploy-ecs-strategy-replicas
+    type: replicas
+    flags:
+      - deploy-ecs-strategy
+    version:
+      count: 1
+
+  - name: deploy-ecs-strategy-ecs-cluster
+    type: cluster
+    flags:
+      - deploy-ecs-strategy
+    integration: dr-aws
+    pointer:
+      sourceName : "deploy-ecs-strategy" #name of the cluster to which we are deploying
+      region: "us-east-1"
