@@ -35,3 +35,5 @@ jobs:
       - IN: deploy-ecs-strategy-ecs-cluster
       - TASK: managed
         deployMethod: replace
+        deployOptions:
+          - parallel
