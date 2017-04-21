@@ -19,11 +19,13 @@ jobs:
 
   - name: deploy-ecs-strategy-nginx-manifest
     type: manifest
+    flags:
+      - deploy-ecs-strategy
     steps:
       - IN: deploy-ecs-strategy-nginx-docker-options
       - IN: deploy-ecs-strategy-nginx
 
-  - name: deploy-ecs-strategy-deploy-replace
+  - name: deploy-ecs-strategy-deploy
     type: deploy
     flags:
       - deploy-ecs-strategy
@@ -33,3 +35,5 @@ jobs:
       - IN: deploy-ecs-strategy-ecs-cluster
       - TASK: managed
         deployMethod: replace
+        deployOptions:
+          - parallel
