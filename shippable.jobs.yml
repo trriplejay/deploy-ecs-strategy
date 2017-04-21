@@ -1,0 +1,35 @@
+jobs:
+  - name: deploy-ecs-strategy_runCI
+    type: runCI
+    flags:
+      - deploy-ecs-strategy
+    steps:
+      - OUT: deploy-ecs-strategy-image
+
+  - name: deploy-ecs-strategy-manifest
+    type: manifest
+    flags:
+      - deploy-ecs-strategy
+    steps:
+     - IN: deploy-ecs-strategy-image
+     - IN: deploy-ecs-strategy-docker-options
+     - IN: deploy-ecs-strategy-params
+     - IN: deploy-ecs-strategy-replicas
+
+
+  - name: deploy-ecs-strategy-nginx-manifest
+    type: manifest
+    steps:
+      - IN: deploy-ecs-strategy-nginx-docker-options
+      - IN: deploy-ecs-strategy-nginx
+
+  - name: deploy-ecs-strategy-deploy-replace
+    type: deploy
+    flags:
+      - deploy-ecs-strategy
+    steps:
+      - IN: deploy-ecs-strategy-manifest
+      - IN: deploy-ecs-strategy-nginx-manifest
+      - IN: deploy-ecs-strategy-ecs-cluster
+      - TASK: managed
+        deployMethod: replace
