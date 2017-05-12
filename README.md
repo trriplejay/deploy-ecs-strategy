@@ -5,7 +5,7 @@
 ![AyeAye](https://github.com/devops-recipes/deploy-ecs-strategy/blob/master/public/resources/images/captain.png)
 
 A simple Node JS application with unit tests and coverage reports using mocha
-and istanbul. It also does a docker build once CI posses and then pushes the image to docker hub
+and istanbul. It also does a docker build once CI passes and then pushes the image to Amazon ECR
 
 ## Run CI for this repo on Shippable
 * Fork this repo into your local repo
