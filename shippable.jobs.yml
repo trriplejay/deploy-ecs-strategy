@@ -27,13 +27,11 @@ jobs:
 
   - name: deploy-ecs-strategy-deploy
     type: deploy
+    method: replace
+    workflow: parallel
     flags:
       - deploy-ecs-strategy
     steps:
       - IN: deploy-ecs-strategy-manifest
       - IN: deploy-ecs-strategy-nginx-manifest
       - IN: deploy-ecs-strategy-ecs-cluster
-      - TASK: managed
-        deployMethod: replace
-        deployOptions:
-          - parallel
